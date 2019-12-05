@@ -16,14 +16,28 @@ function unpack(rows, index) {
     });
   }
 
-
-
 d3.json("samples.json").then((data)=>{
-    console.log(data);
-    var sample_id = data.names;
-    var samples = data.samples;
-    console.log(sample_id);
-    sample_id.forEach(element => {
-       var sample_data = samples.map 
-    });
+  console.log(data);
+  var sample_id = data.names;
+  var samples = data.samples;
+  init(samples[0]);
 });
+
+function init(sample){
+  var trace={
+    x: sample.sample_values,
+    y: sample.otu_ids,
+    text: [sample.otu_labels],
+    type: 'bar',
+    orientation: 'h'
+  }
+
+  var layout={
+    title: `Patient ${sample.id}`,
+  }
+
+  var data = [trace];
+
+  Plotly.newPlot('bar', trace, layout);
+}
+
