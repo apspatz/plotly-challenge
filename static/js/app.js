@@ -24,20 +24,28 @@ d3.json("samples.json").then((data)=>{
 });
 
 function init(sample){
+  console.log(sample);
+  
+  var sval = Object.values(sample.sample_values).slice(0,10);
+  var ids = Object.values(sample.otu_ids).slice(0,10);
+  var labels = Object.values(sample.otu_labels).slice(0,10);
+  console.log(sval, ids, labels);
+
   var trace={
-    x: sample.sample_values,
-    y: sample.otu_ids,
-    text: [sample.otu_labels],
+    x: ids,
+    y: sval,
+    text: labels,
     type: 'bar',
     orientation: 'h'
   }
 
   var layout={
     title: `Patient ${sample.id}`,
+    xaxis: {title: ''}
   }
 
   var data = [trace];
 
-  Plotly.newPlot('bar', trace, layout);
+  Plotly.newPlot('bar', data, layout);
 }
 
