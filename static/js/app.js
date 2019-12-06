@@ -71,6 +71,31 @@ function init(sample, metadata){ //Building initial graphs and info
                   <tr><th>bbtype: ${metadata.bbtype}</th></tr>
                   <tr><th>wfreq: ${metadata.wfreq}</th></tr>
                 </table>`);
+
+  // Bonus (Builds gauge)
+  var wfreq = metadata.wfreq;
+  console.log(`wfreq ${wfreq}`);
+
+  var data = [
+    {
+    domain: { x: [0, 1], y: [0, 1] },
+    value: wfreq,
+    title: { text: `Weekly Washing Frequency of Participant ${metadata.id}` },
+    type: "indicator",
+    mode: "gauge+number",
+    gauge: { axis: { range: [null, 9] },
+            steps: [
+              { range: [0, 2], color: "gray" },
+              { range: [2, 4], color: "red" },
+              { range: [4, 6], color: "yellow" },
+              { range: [6, 8], color: "teal" },
+              { range: [8, 9], color: "blue" }
+            ] }
+    }
+  ];
+
+  var layout = { width: 600, height: 500, margin: { t: 0, b: 0 } };
+  Plotly.newPlot("gauge", data, layout);
 };
 
 // Builds dropdown menu with all IDs
@@ -87,6 +112,7 @@ function dropBox(sample_ids){
                       return `${id}`;
                     });
 }
+
 
 // Updates plots and demographics based on new ID
 function updatePlotly(sample, metadata){
@@ -141,4 +167,12 @@ function updatePlotly(sample, metadata){
                   <tr><th>bbtype: ${metadata.bbtype}</th></tr>
                   <tr><th>wfreq: ${metadata.wfreq}</th></tr>
                 </table>`);
+  
+  // Bonus (Updates gauge)
+  var wfreq = metadata.wfreq;
+  console.log(`wfreq ${wfreq}`);
+
+  var new_title = `Weekly Washing Frequency of Participant ${metadata.id}`
+  Plotly.restyle("gauge", "title.text", new_title);
+  Plotly.restyle("gauge", "value", wfreq);
 }
