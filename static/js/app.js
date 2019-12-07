@@ -85,7 +85,7 @@ function init(sample, metadata){ //Building initial graphs and info
     mode: "gauge+number",
     gauge: { axis: { range: [null, 9] },
             steps: [
-              { range: [0, 2], color: "gray" },
+              { range: [0, 2], color: "brown" },
               { range: [2, 4], color: "red" },
               { range: [4, 6], color: "yellow" },
               { range: [6, 8], color: "teal" },
